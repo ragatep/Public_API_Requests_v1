@@ -85,7 +85,7 @@ function searchResult(lists){
   let searchResults = [];
   lists.forEach(employee => {
     let employeeName = `${employee.name.first} ${employee.name.last}`;
-      if(searchInput) {
+      if(searchInput.lenght !== 0) {
         if(employeeName.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())) {
           searchResults.push(employee);
         } 
@@ -205,25 +205,17 @@ const formatDate = (originalDate) => {
  *  If no match is found, shows the orignal set of cards,
  *  and resets the newDirectories list.
  */
-searchContainer.addEventListener('click', (e) => {
-  if(e.target.className === 'search-submit'){
-    if(searchResult(workingDirectories[0]) === true) {
-      // document.querySelectorAll('.card').forEach(item => item.remove());
+const submit = document.querySelector('.search-submit');
+submit.addEventListener('click', (e) => {
+  e.preventDefault();
+  if(searchResult(workingDirectories[0]) === true) {
+    gallery.innerHTML = '';
+    generateGallery(newDirectories[0]);
+    workingDirectories[0] = newDirectories[0];
+  } else {
       gallery.innerHTML = '';
-      generateGallery(newDirectories[0]);
-      workingDirectories[0] = newDirectories[0];
-    } else {
-        // document.querySelectorAll('.card').forEach(item => item.remove());
-        gallery.innerHTML = '';
-        reloadList();
-     } 
-    //else {
-    //     document.querySelectorAll('.card').forEach(item => item.remove());
-    //     workingDirectories[0] = previousDirectories[0];
-    //     newDirectories = [];
-    //     generateGallery(workingDirectories[0]);
-    // };
-  };
+      reloadList();
+    } 
 })
 /**
  *  Clicking inside the search box or clicking the 'x' button will reset the gallery
@@ -231,7 +223,6 @@ searchContainer.addEventListener('click', (e) => {
  */
 const searchBox = document.querySelector('input[type="search"]'); 
 searchBox.addEventListener('click', (e) => {
-  // document.querySelectorAll('.card').forEach(item => item.remove());
   gallery.innerHTML = '';
   workingDirectories[0] = previousDirectories[0];
   newDirectories = [];
