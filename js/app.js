@@ -4,6 +4,9 @@
  *  Student: Ryan Agatep
  *  app.js
  */
+
+'use strict';
+
 const gallery = document.querySelector('.gallery');
 const body = document.querySelector('body');
 /**
