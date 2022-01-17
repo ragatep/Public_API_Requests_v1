@@ -69,7 +69,7 @@ Promise.all(urls.map(url =>
 // ------------------------------------------
 
 /**
- *  Checks the status of the etchData(url) connection
+ *  Checks the status of the fetchData(url) connection
  */
 function checkStatus(response) {
   if(response.ok) {
@@ -155,7 +155,9 @@ function generateModal(clicked, cardId) {
     `;
   gallery.insertAdjacentHTML('afterEnd', modal);
 }
-
+/**
+ *  Loads a message when no matches found.
+ */
 function reloadList() {
   const reloadList = `
     <div class="reload-info-container">
@@ -168,13 +170,12 @@ function reloadList() {
   `;
   gallery.insertAdjacentHTML('beforeEnd', reloadList);
 }
-
 /**
  *  Function that closes the modal.
  */
 const closeModal = () => document.querySelector('.modal-container').remove();
 /**
- *  Function that removes the modal buttons.
+ *  Function that removes the modal buttons when there is only person shown.
  */
 const removeModalButtonContainer = () => document.querySelector('.modal-btn-container').remove();
 /**
@@ -223,7 +224,7 @@ submit.addEventListener('click', (e) => {
 })
 /**
  *  Clicking inside the search box or clicking the 'x' button will reset the gallery
- *  with the original set of cards.
+ *  with the original set of cards depending on browser used.
  */
 const searchBox = document.querySelector('input[type="search"]'); 
 searchBox.addEventListener('click', (e) => {
@@ -247,6 +248,7 @@ gallery.addEventListener('click', (e) => {
  *  Calls the function that closes the modal when the its 'x' buttom is clicked.
  *  Functionality added to switch back and forth between employees
  *  when the detail modal window is open.
+ *  Calls the removeModalButtonContainer() when there is only one card shown.
  */
 body.addEventListener('click', (e) => {
   if(e.target.closest('.modal-close-btn')) {
