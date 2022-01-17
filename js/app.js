@@ -85,10 +85,11 @@ function checkStatus(response) {
  */
 function searchResult(lists){
   let searchInput = document.querySelector('#search-input').value;
+  // console.log(searchInput);
   let searchResults = [];
   lists.forEach(employee => {
     let employeeName = `${employee.name.first} ${employee.name.last}`;
-      if(searchInput.lenght !== 0) {
+      if(searchInput!== "") {
         if(employeeName.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())) {
           searchResults.push(employee);
         } 
@@ -211,14 +212,15 @@ const formatDate = (originalDate) => {
 const submit = document.querySelector('.search-submit');
 submit.addEventListener('click', (e) => {
   e.preventDefault();
-  if(searchResult(workingDirectories[0]) === true) {
-    gallery.innerHTML = '';
-    generateGallery(newDirectories[0]);
-    workingDirectories[0] = newDirectories[0];
-  } else {
+    if(searchResult(workingDirectories[0]) === true) {
       gallery.innerHTML = '';
-      reloadList();
-    } 
+      generateGallery(newDirectories[0]);
+      workingDirectories[0] = newDirectories[0];
+    } else {
+        gallery.innerHTML = '';
+        reloadList();
+      } 
+    //}
 })
 /**
  *  Clicking inside the search box or clicking the 'x' button will reset the gallery
@@ -226,6 +228,7 @@ submit.addEventListener('click', (e) => {
  */
 const searchBox = document.querySelector('input[type="search"]'); 
 searchBox.addEventListener('click', (e) => {
+  e.preventDefault();
   gallery.innerHTML = '';
   workingDirectories[0] = previousDirectories[0];
   newDirectories = [];
