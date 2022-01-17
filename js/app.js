@@ -276,7 +276,11 @@ body.addEventListener('click', (e) => {
         closeModal();
         generateModal(workingDirectories[0][modalId], modalId);
       } 
-    } else removeModalButtonContainer();
+    } else {
+        if(document.querySelector('.modal-btn-container')){
+          removeModalButtonContainer();
+        }
+      }
   }
 })
 
