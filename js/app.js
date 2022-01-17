@@ -151,10 +151,28 @@ function generateModal(clicked, cardId) {
     `;
   gallery.insertAdjacentHTML('afterEnd', modal);
 }
+
+function reloadList() {
+  const reloadList = `
+    <div class="reload-info-container">
+      <hr>
+      <h2 class="reload-text">🤔 Hmmm... </h2>
+      <p class="reload-text">We couldn't find any matches.</p>
+      <p class="reload-text">Click inside the Search Box to reload the current list of employees or, refresh the page to get a new list.</p>
+      <hr>
+    </div>
+  `;
+  gallery.insertAdjacentHTML('beforeEnd', reloadList);
+}
+
 /**
  *  Function that closes the modal.
  */
 const closeModal = () => document.querySelector('.modal-container').remove();
+/**
+ *  Function that removes the modal buttons.
+ */
+const removeModalButtonContainer = () => document.querySelector('.modal-btn-container').remove();
 /**
  *  Function that converts cell phone number to this format: (XXX) XXX-XXXX.
  *  Returns formatted cell phone number.
@@ -190,15 +208,21 @@ const formatDate = (originalDate) => {
 searchContainer.addEventListener('click', (e) => {
   if(e.target.className === 'search-submit'){
     if(searchResult(workingDirectories[0]) === true) {
-      document.querySelectorAll('.card').forEach(item => item.remove());
+      // document.querySelectorAll('.card').forEach(item => item.remove());
+      gallery.innerHTML = '';
       generateGallery(newDirectories[0]);
       workingDirectories[0] = newDirectories[0];
     } else {
-      document.querySelectorAll('.card').forEach(item => item.remove());
-      workingDirectories[0] = previousDirectories[0];
-      newDirectories = [];
-      generateGallery(workingDirectories[0]);
-    };
+        // document.querySelectorAll('.card').forEach(item => item.remove());
+        gallery.innerHTML = '';
+        reloadList();
+     } 
+    //else {
+    //     document.querySelectorAll('.card').forEach(item => item.remove());
+    //     workingDirectories[0] = previousDirectories[0];
+    //     newDirectories = [];
+    //     generateGallery(workingDirectories[0]);
+    // };
   };
 })
 /**
@@ -207,7 +231,8 @@ searchContainer.addEventListener('click', (e) => {
  */
 const searchBox = document.querySelector('input[type="search"]'); 
 searchBox.addEventListener('click', (e) => {
-  document.querySelectorAll('.card').forEach(item => item.remove());
+  // document.querySelectorAll('.card').forEach(item => item.remove());
+  gallery.innerHTML = '';
   workingDirectories[0] = previousDirectories[0];
   newDirectories = [];
   generateGallery(workingDirectories[0]);
@@ -255,7 +280,7 @@ body.addEventListener('click', (e) => {
         closeModal();
         generateModal(workingDirectories[0][modalId], modalId);
       } 
-    } 
+    } else removeModalButtonContainer();
   }
 })
 
