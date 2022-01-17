@@ -219,8 +219,7 @@ submit.addEventListener('click', (e) => {
     } else {
         gallery.innerHTML = '';
         reloadList();
-      } 
-    //}
+    } 
 })
 /**
  *  Clicking inside the search box or clicking the 'x' button will reset the gallery
